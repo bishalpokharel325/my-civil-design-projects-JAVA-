@@ -1,0 +1,60 @@
+package graphics;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+public class Newjframe extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Newjframe frame = new Newjframe();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Newjframe() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+	}
+	public void paintComponent(Graphics g)
+	{
+		
+		super.paintComponents(g);
+		this.setBackground(Color.WHITE);
+		g.setColor(Color.BLUE);
+		g.drawLine(0,0,50,50);
+		g.setColor(new Color(192,25,30));
+		g.drawRect(250,250,250,250);
+		g.setColor(Color.CYAN);
+		g.drawString("this is string",400,500);
+		
+	
+	
+	
+		
+	}
+
+}

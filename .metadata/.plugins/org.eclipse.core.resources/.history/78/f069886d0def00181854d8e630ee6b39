@@ -1,0 +1,75 @@
+package practisematra;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+
+public class Practisematra {
+
+	private JFrame frame;
+	private JButton btnNextWindow;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Practisematra window = new Practisematra();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Practisematra() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		btnNextWindow = new JButton("next window");
+		btnNextWindow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnNextWindow.setBounds(118, 147, 175, 23);
+		frame.getContentPane().add(btnNextWindow);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("New check box");
+		chckbxNewCheckBox.setBounds(26, 44, 97, 23);
+		frame.getContentPane().add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("New check box");
+		chckbxNewCheckBox_1.setBounds(26, 70, 97, 23);
+		frame.getContentPane().add(chckbxNewCheckBox_1);
+		
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("New check box");
+		chckbxNewCheckBox_2.setBounds(26, 99, 97, 23);
+		frame.getContentPane().add(chckbxNewCheckBox_2);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(220, 28, 110, 107);
+		frame.getContentPane().add(formattedTextField);
+	}
+}

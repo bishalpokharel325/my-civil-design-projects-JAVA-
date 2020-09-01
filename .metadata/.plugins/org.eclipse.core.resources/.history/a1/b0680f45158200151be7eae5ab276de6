@@ -1,0 +1,20 @@
+package graphics;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class shapes extends JPanel {
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		this.setBackground(Color.YELLOW);
+		g.setColor(Color.BLUE);
+		g.drawLine(0,0,50000,50000);
+		g.setColor(Color.RED);
+		g.drawString("fuck off",500,500);
+		
+	}
+	
+	
+
+}

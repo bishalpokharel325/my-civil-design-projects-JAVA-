@@ -1,0 +1,77 @@
+package readingfromcsv;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Scanner;
+import java.awt.event.ActionEvent;
+
+public class Read {
+
+	private JFrame frame;
+	private JTextField TFvalues;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Read window = new Read();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Read() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					String filename="Book1.csv";
+					File file=new File(filename);
+					Scanner inputStream=new Scanner(file);
+					while(inputStream.hasNext())
+					{
+						String data=inputStream.next();
+						TFvalues.setText(data);
+					}
+					
+				}catch(Exception e1){
+					JOptionPane.showMessageDialog(null,"please enter valid no.");
+				}
+			}
+		});
+		btnNewButton.setBounds(87, 45, 89, 23);
+		frame.getContentPane().add(btnNewButton);
+		
+		TFvalues = new JTextField();
+		TFvalues.setBounds(34, 134, 306, 55);
+		frame.getContentPane().add(TFvalues);
+		TFvalues.setColumns(10);
+	}
+}

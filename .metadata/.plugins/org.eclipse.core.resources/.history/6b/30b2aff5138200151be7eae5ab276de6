@@ -1,0 +1,21 @@
+package graphics;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class shapes extends JPanel {
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		this.setBackground(Color.WHITE);
+		g.setColor(Color.BLUE);
+		g.fillRect(100,100,256,256);
+		g.setColor(new Color(100,100,100));
+		g.fillRect(400,400,65,70);
+		g.setColor(Color.GREEN);
+		g.drawRect(500,600,25,30);
+	}
+	
+	
+
+}

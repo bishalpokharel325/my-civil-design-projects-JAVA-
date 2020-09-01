@@ -1,0 +1,86 @@
+package naya;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Naya extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField TFnum1;
+	private JTextField TFnum2;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Naya frame = new Naya();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Naya() {
+		setTitle("ADDITION");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton Badd = new JButton("add");
+		Badd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		Badd.setBounds(164, 187, 89, 23);
+		contentPane.add(Badd);
+		
+		TFnum1 = new JTextField();
+		TFnum1.setBounds(59, 129, 86, 20);
+		contentPane.add(TFnum1);
+		TFnum1.setColumns(10);
+		
+		TFnum2 = new JTextField();
+		TFnum2.setBounds(313, 129, 86, 20);
+		contentPane.add(TFnum2);
+		TFnum2.setColumns(10);
+		
+		JLabel lblNum = new JLabel("Num 1:");
+		lblNum.setBounds(59, 104, 46, 14);
+		contentPane.add(lblNum);
+		
+		JLabel lblNum_1 = new JLabel("Num 2:");
+		lblNum_1.setBounds(313, 104, 46, 14);
+		contentPane.add(lblNum_1);
+		
+		JLabel lblSum = new JLabel("Sum=");
+		lblSum.setBounds(276, 191, 46, 14);
+		contentPane.add(lblSum);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(313, 191, 46, 14);
+		contentPane.add(label);
+	}
+ 
+}

@@ -1,0 +1,326 @@
+package slabdesign;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Formatter;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JRadioButton;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+
+public class slabdesign {
+
+	private JFrame frmDesignOfRcc;
+	private JTextField TFconcrete;
+	private JTextField TFsteel;
+	private JTextField TFcofficient;
+	private JTextField TFdatalocation;
+	private JTextField TFsolution;
+	private JTextField TFodepth;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private JTextField TFcover;
+	private JTextField TFtwowaycofficient;
+	private JLabel TVresult;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					slabdesign window = new slabdesign();
+					window.frmDesignOfRcc.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public slabdesign() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmDesignOfRcc = new JFrame();
+		frmDesignOfRcc.setTitle("Design OF RCC Slab");
+		frmDesignOfRcc.setBounds(100, 100, 735, 523);
+		frmDesignOfRcc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDesignOfRcc.getContentPane().setLayout(null);
+		
+		JLabel lblEnterGradeOf = new JLabel("Enter Grade of Concrete(N/sq.mm):");
+		lblEnterGradeOf.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEnterGradeOf.setBounds(10, 13, 238, 14);
+		frmDesignOfRcc.getContentPane().add(lblEnterGradeOf);
+		
+		TFconcrete = new JTextField();
+		TFconcrete.setText("25");
+		TFconcrete.setBounds(249, 11, 86, 20);
+		frmDesignOfRcc.getContentPane().add(TFconcrete);
+		TFconcrete.setColumns(10);
+		
+		JLabel lblEnterGradeOf_1 = new JLabel("Enter Grade of Steel(N/sq.mm):");
+		lblEnterGradeOf_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEnterGradeOf_1.setBounds(10, 40, 214, 14);
+		frmDesignOfRcc.getContentPane().add(lblEnterGradeOf_1);
+		
+		TFsteel = new JTextField();
+		TFsteel.setText("500");
+		TFsteel.setColumns(10);
+		TFsteel.setBounds(249, 38, 86, 20);
+		frmDesignOfRcc.getContentPane().add(TFsteel);
+		
+		JLabel lblEnterCsvFile = new JLabel("Enter cofficient table file(.csv):");
+		lblEnterCsvFile.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEnterCsvFile.setBounds(10, 96, 214, 14);
+		frmDesignOfRcc.getContentPane().add(lblEnterCsvFile);
+		
+		TFcofficient = new JTextField();
+		TFcofficient.setText("E:\\mysoftwares\\cofficient.csv");
+		TFcofficient.setColumns(10);
+		TFcofficient.setBounds(249, 94, 219, 20);
+		frmDesignOfRcc.getContentPane().add(TFcofficient);
+		
+		JButton btnNewButton = new JButton("Browse");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f=chooser.getSelectedFile();
+				String filename=f.getAbsolutePath();
+				TFcofficient.setText(filename);
+			}
+		});
+		btnNewButton.setBounds(478, 93, 89, 23);
+		frmDesignOfRcc.getContentPane().add(btnNewButton);
+		
+		JLabel lblEnterSlabData = new JLabel("Enter Slab Data in form of Csv:");
+		lblEnterSlabData.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEnterSlabData.setBounds(10, 68, 214, 14);
+		frmDesignOfRcc.getContentPane().add(lblEnterSlabData);
+		
+		TFdatalocation = new JTextField();
+		TFdatalocation.setText("E:\\mysoftwares\\slabdata.csv");
+		TFdatalocation.setColumns(10);
+		TFdatalocation.setBounds(249, 66, 219, 20);
+		frmDesignOfRcc.getContentPane().add(TFdatalocation);
+		
+		JButton button = new JButton("Browse");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f=chooser.getSelectedFile();
+				String filename=f.getAbsolutePath();
+				TFdatalocation.setText(filename);
+			}
+		});
+		button.setBounds(478, 65, 89, 23);
+		frmDesignOfRcc.getContentPane().add(button);
+		
+		JButton btnCalculate = new JButton("calculate");
+		btnCalculate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					double concrete=Double.parseDouble(TFconcrete.getText());
+					double steel=Double.parseDouble(TFsteel.getText());
+					double datalocation=Double.parseDouble(TFdatalocation.getText());
+					double cofficientlocation=Double.parseDouble(TFcofficient.getText());
+					double cover=Double.parseDouble(TFcover.getText());
+					double odepth=Double.parseDouble(TFodepth.getText());
+					
+					
+					String a = null;
+					
+					Enumeration<AbstractButton> bg=buttonGroup.getElements();
+					while(bg.hasMoreElements()){
+						JRadioButton jrd=(JRadioButton) bg.nextElement();
+						
+						if(jrd.isSelected())
+						a=jrd.getText();
+						
+							
+					}
+					double tdiam=Double.parseDouble(a);
+					
+					
+					Enumeration<AbstractButton> bg1=buttonGroup_1.getElements();
+					while(bg1.hasMoreElements()){
+						JRadioButton jrd=(JRadioButton) bg1.nextElement();
+						
+						if(jrd.isSelected())
+						a=jrd.getText();
+						
+							
+					}
+					double cdiam=Double.parseDouble(a);
+					 Formatter xf;
+					 xf=new Formatter(TFsolution.getText());
+					 xf.format("%s","Ok here we go \n");
+					 String result=String.format("%.3f",tdiam);
+					 TVresult.setText(result);
+					 xf.close();
+					 
+				}catch(Exception e1){
+					JOptionPane.showMessageDialog(null,e1);
+				}
+				
+			}
+		});
+		btnCalculate.setBounds(223, 384, 89, 23);
+		frmDesignOfRcc.getContentPane().add(btnCalculate);
+		
+		JLabel lblResult = new JLabel("Result:");
+		lblResult.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblResult.setBounds(10, 418, 77, 30);
+		frmDesignOfRcc.getContentPane().add(lblResult);
+		
+	    TVresult = new JLabel(".............");
+		TVresult.setBounds(20, 459, 46, 14);
+		frmDesignOfRcc.getContentPane().add(TVresult);
+		
+		JLabel lblSolutioncsv = new JLabel("Solution .csv:");
+		lblSolutioncsv.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblSolutioncsv.setBounds(90, 177, 110, 14);
+		frmDesignOfRcc.getContentPane().add(lblSolutioncsv);
+		
+		TFsolution = new JTextField();
+		TFsolution.setText("E:\\mysoftwares\\solution.csv");
+		TFsolution.setColumns(10);
+		TFsolution.setBounds(215, 178, 219, 20);
+		frmDesignOfRcc.getContentPane().add(TFsolution);
+		
+		JButton button_1 = new JButton("Browse");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f=chooser.getSelectedFile();
+				String filename=f.getAbsolutePath();
+				TFsolution.setText(filename);
+				
+			}
+		});
+		button_1.setBounds(444, 177, 89, 23);
+		frmDesignOfRcc.getContentPane().add(button_1);
+		
+		JLabel label = new JLabel("Choose Diameter of Tension Reinforcement");
+		label.setForeground(Color.BLACK);
+		label.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		label.setBounds(10, 211, 288, 20);
+		frmDesignOfRcc.getContentPane().add(label);
+		
+		JRadioButton radioButton = new JRadioButton("8");
+		buttonGroup.add(radioButton);
+		radioButton.setBounds(10, 238, 58, 23);
+		frmDesignOfRcc.getContentPane().add(radioButton);
+		
+		JRadioButton radioButton_1 = new JRadioButton("10");
+		buttonGroup.add(radioButton_1);
+		radioButton_1.setSelected(true);
+		radioButton_1.setBounds(68, 238, 58, 23);
+		frmDesignOfRcc.getContentPane().add(radioButton_1);
+		
+		JRadioButton radioButton_2 = new JRadioButton("12");
+		buttonGroup.add(radioButton_2);
+		radioButton_2.setBounds(124, 238, 58, 23);
+		frmDesignOfRcc.getContentPane().add(radioButton_2);
+		
+		JRadioButton radioButton_10 = new JRadioButton("12");
+		buttonGroup_1.add(radioButton_10);
+		radioButton_10.setBounds(136, 298, 58, 23);
+		frmDesignOfRcc.getContentPane().add(radioButton_10);
+		
+		JLabel label_3 = new JLabel("Choose Diameter of Compression Reinforcement");
+		label_3.setForeground(Color.BLACK);
+		label_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		label_3.setBounds(13, 268, 322, 23);
+		frmDesignOfRcc.getContentPane().add(label_3);
+		
+		JRadioButton radioButton_11 = new JRadioButton("10");
+		buttonGroup_1.add(radioButton_11);
+		radioButton_11.setBounds(80, 298, 58, 23);
+		frmDesignOfRcc.getContentPane().add(radioButton_11);
+		
+		JRadioButton radioButton_12 = new JRadioButton("8");
+		buttonGroup_1.add(radioButton_12);
+		radioButton_12.setSelected(true);
+		radioButton_12.setBounds(22, 298, 58, 23);
+		frmDesignOfRcc.getContentPane().add(radioButton_12);
+		
+		JLabel lblEnterPreliminarySlab = new JLabel("Enter preliminary Slab depth(mm):");
+		lblEnterPreliminarySlab.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEnterPreliminarySlab.setBounds(22, 330, 238, 14);
+		frmDesignOfRcc.getContentPane().add(lblEnterPreliminarySlab);
+		
+		TFodepth = new JTextField();
+		TFodepth.setText("150");
+		TFodepth.setColumns(10);
+		TFodepth.setBounds(270, 328, 86, 20);
+		frmDesignOfRcc.getContentPane().add(TFodepth);
+		
+		JLabel lblEnterEffectiveCovermm = new JLabel("Enter effective cover(mm):");
+		lblEnterEffectiveCovermm.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEnterEffectiveCovermm.setBounds(32, 355, 192, 14);
+		frmDesignOfRcc.getContentPane().add(lblEnterEffectiveCovermm);
+		
+		TFcover = new JTextField();
+		TFcover.setText("25");
+		TFcover.setColumns(10);
+		TFcover.setBounds(249, 353, 86, 20);
+		frmDesignOfRcc.getContentPane().add(TFcover);
+		
+		TFtwowaycofficient = new JTextField();
+		TFtwowaycofficient.setText("E:\\mysoftwares\\twowaycofficient.csv");
+		TFtwowaycofficient.setColumns(10);
+		TFtwowaycofficient.setBounds(259, 124, 219, 20);
+		frmDesignOfRcc.getContentPane().add(TFtwowaycofficient);
+		
+		JButton button_2 = new JButton("Browse");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f=chooser.getSelectedFile();
+				String filename=f.getAbsolutePath();
+				TFtwowaycofficient.setText(filename);
+				
+
+			}
+		});
+		button_2.setBounds(483, 121, 89, 23);
+		frmDesignOfRcc.getContentPane().add(button_2);
+		
+		JLabel label_1 = new JLabel("Enter cofficient table file(.csv):");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		label_1.setBounds(20, 126, 214, 14);
+		frmDesignOfRcc.getContentPane().add(label_1);
+		
+		JLabel lblFileHavingComplete = new JLabel("File Having complete Solutions in .csv format.....");
+		lblFileHavingComplete.setForeground(Color.BLACK);
+		lblFileHavingComplete.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblFileHavingComplete.setBounds(80, 155, 332, 20);
+		frmDesignOfRcc.getContentPane().add(lblFileHavingComplete);
+	}
+}

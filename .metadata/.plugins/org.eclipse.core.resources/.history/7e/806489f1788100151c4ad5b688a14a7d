@@ -1,0 +1,125 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class KennedyMethod extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField TFdischarge;
+	private JTextField TFm;
+	private JTextField TFn;
+	private JTextField TFls;
+	private JTextField TFss;
+	private JLabel TVb;
+private	JLabel TVy;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					KennedyMethod frame = new KennedyMethod();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public KennedyMethod() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblKennedymethod = new JLabel("Kennedy Method:");
+		lblKennedymethod.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblKennedymethod.setBounds(10, 11, 215, 32);
+		contentPane.add(lblKennedymethod);
+		
+		JLabel label = new JLabel("30");
+		label.setBounds(20, 54, 46, 14);
+		contentPane.add(label);
+		
+		TFdischarge = new JTextField();
+		TFdischarge.setBounds(20, 48, 86, 20);
+		contentPane.add(TFdischarge);
+		TFdischarge.setColumns(10);
+		
+		TFm = new JTextField();
+		TFm.setText("1");
+		TFm.setBounds(10, 79, 86, 20);
+		contentPane.add(TFm);
+		TFm.setColumns(10);
+		
+		TFn = new JTextField();
+		TFn.setText("0.0225");
+		TFn.setBounds(10, 110, 86, 20);
+		contentPane.add(TFn);
+		TFn.setColumns(10);
+		
+		TFls = new JTextField();
+		TFls.setText("5500");
+		TFls.setBounds(10, 141, 86, 20);
+		contentPane.add(TFls);
+		TFls.setColumns(10);
+		
+		TFss = new JTextField();
+		TFss.setText("0.5");
+		TFss.setBounds(10, 167, 86, 20);
+		contentPane.add(TFss);
+		TFss.setColumns(10);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					double discharge=Double.parseDouble(TFdischarge.getText());
+					double m=Double.parseDouble(TFm.getText());
+					double n=Double.parseDouble(TFn.getText());
+					double ls=Double.parseDouble(TFls.getText());
+					double ss=Double.parseDouble(TFss.getText());
+					double y=1.5,V0;
+					V0=0.55*m*Math.pow(y, 0.64);
+                    String bs=String.format("%.1f",y);
+					TVb.setText(bs+"m");
+                    String hs=String.format("%.1f",V0); 
+                    TVy.setText(hs+"m");
+					
+				}catch(Exception e1){
+					JOptionPane.showMessageDialog(null,"please enter valid no.");
+				}
+			}
+			
+		});
+		btnNewButton.setBounds(30, 208, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		TVy = new JLabel("New label");
+		TVy.setBounds(204, 113, 46, 14);
+		contentPane.add(TVy);
+		
+		TVb = new JLabel("New label");
+		TVb.setBounds(204, 147, 46, 14);
+		contentPane.add(TVb);
+	}
+}
